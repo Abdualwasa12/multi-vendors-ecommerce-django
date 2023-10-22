@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Vendor Admin" %}{% endblock title %}
+
+{% block breadcrumb %}
+	<li class="active">{% trans "Vendor Admin" %}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container">
+    <div class="align-items-center">
+    <h3 class="title py-4">{{vendor.name}}</h3>
+    <div class="box">
+        <h4 class="is-size-3 mb-4">{% trans "My Ads" %}</h4>
+        <a href="{% url 'vendor:add-product' %}" class="btn btn-success">{% trans "Add Product" %}</a>
+        {% if products %}
+        
+        <table class="table is-fullwidth py-2">
+            <thead>
+                <tr>
+                    <th>S.N.</th>
+                    <th>{% trans "Image" %}</th>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Price" %}</th>
+                    <th>{% trans "Update" %}</th>
+                    <th>{% trans "Delete" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><img class="thumb" src="{{product.thumbnail.url}}" alt=""></td>
+                        <td><a href="{% url 'shop:product_detail' product.id product.slug %}">{{ product.name }}</a></td>
+                        <td>${{ product.price }}</td>
+                        <td><a class="btn btn-info" href="{% url 'vendor:update_product' product.id product.slug%}">{% trans "Update" %}</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'vendor:delete_product' product.id product.slug%}">{% trans "Delete" %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    {% else %}
+        <p class="has-text-danger">{% trans "Products not added yet." %}</p>
+    {% endif %}
+    </div>
+    </div>
+</div>
+{% endblock content %}

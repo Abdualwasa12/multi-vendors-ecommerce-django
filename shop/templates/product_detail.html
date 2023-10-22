@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block breadcrumb %}
+	<li class="active">{{product.name}}</li>
+{% endblock breadcrumb %}
+      
+{% block content %}
+  
+
+       
+		
+					
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+						</div>
+					</div>
+					<!-- /Product main img -->
+
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="{{product.thumbnail.url}}" alt="">
+							</div>
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
+
+					<!-- Product details -->
+					<div class="col-md-5">
+						<div class="product-details">
+							<h2 class="product-name">{{product.name}}</h2>
+							
+							<div>
+								<h3 class="product-price">${{product.price}}</h3>
+								
+							</div>
+							 <p>{% trans "Vendor" %} :{{product.vendor}}</p>
+							<p>{% trans "Created At" %} : {{product.created |date:'Y-m-d'}}</p>
+							<p>{% trans "Last Update" %} : {{product.updated|date:'Y-m-d'}}</p>
+
+						
+							<ul class="product-btns">
+
+								<li><a href="{% url 'vendor:add_to_wishlist' product.id  product.slug %}"><i class="fa fa-heart-o"></i> {% trans "add to wishlist" %}</a></li>
+							</ul>
+
+							<ul class="product-links">
+								
+								{% if product.vendor == request.user.vendor %}
+								<li><a class="btn btn-info" href="{% url 'vendor:update_product' product.id product.slug%}">{% trans "Update" %}</a></li>
+								<li><a class="btn btn-danger" href="{% url 'vendor:delete_product' product.id product.slug%}">{% trans "Delete" %}</a></li>
+								{% endif %}
+							</ul>
+
+							<ul class="product-links">
+								<li>{% trans "Share" %}:</li>
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
+							</ul>
+
+						</div>
+					</div>
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">{% trans "Description" %}</a></li>
+								<li><a data-toggle="tab" href="#tab3">{% trans "Photos" %}</a></li>
+							</ul>
+							<!-- /product tab nav -->
+
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+											<p>{{product.description}}</p>
+										</div>
+									</div>
+								</div>
+								<!-- /tab1  -->
+
+
+							
+							</div>
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- Section -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="section-title text-center">
+							<h3 class="title">{% trans "Related Products" %}</h3>
+						</div>
+					</div>
+
+					<!-- product -->
+				{% if similar_products %}
+					{% for product in similar_products %}
+						{% include 'include/product.html' %}
+					{% endfor %}
+					{% else %}
+					{% trans "There is no similar products" %} 
+				{% endif %}
+					<!-- /product -->
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /Section -->
+
+
+
+
+{% endblock content %}

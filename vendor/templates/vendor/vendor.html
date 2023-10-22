@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{vendor.name}}{% endblock title %}
+
+{% block breadcrumb %}
+	<li class="active">{% trans "Vendor" %}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="container text-center">
+    <div class="columns is-multiline mb-6">
+        <div class="column is-12 has-test-centered mt-6 mb-6">
+            <h2 class="is-size-3">{{vendor.name}}</h2>
+        </div>
+
+        {% for product in vendor.products.all %}
+            {% include 'include/product.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

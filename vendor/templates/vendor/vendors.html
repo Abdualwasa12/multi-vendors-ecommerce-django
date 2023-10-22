@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Vendors" %}{% endblock title %}
+
+{% block breadcrumb %}
+	<li class="active">{% trans "Vendors" %}</li>
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+<div class="container">
+    
+    <h1 class="title ">{% trans "Vendors" %}</h1>
+    <div class="col">
+        {% for vendor in vendors %}
+        
+            <div class="col-3">
+                <div class="box">
+                    <h2 class="subtitle">
+                        {{ vendor.name }}
+                    </h2>
+                    <hr>
+                    <a href="{% url 'vendor:vendor' vendor.id %}" class="btn btn-primary ">{% trans "View Products" %}</a>
+                </div>
+            </div>
+            {% endfor %}
+
+    </div>
+</div>
+
+{% endblock content %}

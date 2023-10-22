@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Become Vendor" %} {% endblock title %}
+{% load crispy_forms_tags %}
+
+{% block breadcrumb %}
+	<li class="active">{% trans "Become Vendor" %}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">{% trans "Become Vendor" %}</h1>
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {{ form|crispy}}
+
+        <div class="field">
+            <div class="control">
+                <button class="btn btn-success">{% trans "Sign Up" %}</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

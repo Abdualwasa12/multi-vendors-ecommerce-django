@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Edit vendor" %} | {% endblock %}
+
+{% block breadcrumb %}
+	<li class="active">{% trans "Edit Vendor" %}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">{% trans "Edit vendor" %}</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        <div class="field">
+            <label>{% trans "Vendor name" %}</label>
+
+            <div class="control">
+                <input type="text" name="name" id="id_name" value="{{ vendor.name }}" class="input">
+            </div>
+
+            <p class="help">{% trans "This is not the same as the username!" %}</p>
+        </div>
+
+        <div class="field">
+            <label>{% trans "E-mail" %}</label>
+
+            <div class="control">
+                <input type="email" name="email" id="id_email" value="{{ vendor.created_by.email }}" class="input">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="btn btn-success">{% trans "Save changes" %}</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
